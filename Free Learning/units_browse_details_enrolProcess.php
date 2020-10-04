@@ -216,10 +216,8 @@ if (isActionAccessible($guid, $connection2, '/modules/Free Learning/units_browse
                         $nameExternalMentor = $_POST['nameExternalMentor'];
                     }
                     $grouping = $_POST['grouping'];
-                    $collaborators = null;
-                    if (isset($_POST['collaborators'])) {
-                        $collaborators = $_POST['collaborators'];
-                    }
+                    $collaborators = $_POST['collaborators'] ?? [];
+                    
 
                     $enableClassEnrolment = getSettingByScope($connection2, 'Free Learning', 'enableClassEnrolment');
                     if ($roleCategory != 'Student') {
@@ -268,7 +266,7 @@ if (isActionAccessible($guid, $connection2, '/modules/Free Learning/units_browse
                         //If there are collaborators, generate a unique collaboration key
                         $collaborationKey = null;
                         $unique = false;
-                        if (is_array($collaborators)) {
+                        if (is_array($collaborators) && !empty($collaborators)) {
                             $spinCount = 0;
                             while ($spinCount < 100 and $unique != true) {
                                 $collaborationKey = randomPassword(20);

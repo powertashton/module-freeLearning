@@ -98,7 +98,11 @@ if (isActionAccessible($guid, $connection2, '/modules/Free Learning/units_browse
 
             $row = $form->addRow()->addClass('classEnrolment');
                 $row->addLabel('gibbonCourseClassID', __m('Class'))->description(__m('Which class are you enroling for?'));
-                $row->addSelectClass('gibbonCourseClassID', $gibbonSchoolYearID, $gibbonPersonID, ['allClasses' => false, 'departments' => $values['gibbonDepartmentIDList']])->required();
+                $row->addSelectClass('gibbonCourseClassID', $gibbonSchoolYearID, $gibbonPersonID, [
+                    'allClasses' => false, 
+                    'courseFilter' => 'Free Learning',
+                    'departments' => $values['gibbonDepartmentIDList'],
+                ])->required();
         }
 
         // SCHOOL MENTOR
@@ -260,7 +264,7 @@ if (isActionAccessible($guid, $connection2, '/modules/Free Learning/units_browse
 
             $row = $form->addRow();
                 $row->addLabel('commentStudent', __('Comment'))->description(!empty($values['studentReflectionText']) ? $values['studentReflectionText'] : __m('Leave a brief reflective comment on this unit<br/>and what you learned.'));
-                $row->addTextArea('commentStudent')->setRows(4);
+                $row->addTextArea('commentStudent')->setRows(4)->required();
 
             $types = ['Link' => __('Link'), 'File' => __('File')];
             $row = $form->addRow();
